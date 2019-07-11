@@ -8,7 +8,22 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+
 public class WelcomeActivity extends AppCompatActivity {
+
+
+    private RequestQueue mQueue;
 
     Button proceedButton;
     EditText nameEditText;
@@ -27,6 +42,8 @@ public class WelcomeActivity extends AppCompatActivity {
         nameEditText = (EditText) findViewById(R.id.nameEditText);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
+
+        mQueue = Volley.newRequestQueue(this);
 
         proceedButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -49,7 +66,43 @@ public class WelcomeActivity extends AppCompatActivity {
 
                 }
                 progressBar.setVisibility(View.GONE);
+                jsonParse();
             }
         });
     }
+
+    private void jsonParse() {
+
+        String url = "https://opentdb.com/api_category.php";
+
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            JSONArray jsonArray = response.getJSONArray("trivia_categories");
+
+                            for (int i = 0; i < jsonArray.length(); i++) {
+                                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                                int id = jsonObject.getInt("id");
+                                String categoryName = jsonObject.getString("name");
+                                Category category = new Category();
+                                category.setId(id);
+                                category.setName(categoryName);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+            }
+        });
+        mQueue.add(request);
+    }
 }
+
+
+
