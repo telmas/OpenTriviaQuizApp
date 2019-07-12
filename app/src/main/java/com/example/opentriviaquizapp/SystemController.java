@@ -12,7 +12,6 @@ public class SystemController {
         return INSTANCE;
     }
 
-
     public String getUserName() {
         return userName;
     }

@@ -4,26 +4,28 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center_horizontal"
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/textView3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="0dp"
-        android:text="Choose category:"
+        android:text="Choose difficulty:"
         android:textSize="24sp"
         android:textStyle="bold" />
 
-    <RelativeLayout
+    <ListView
+        android:id="@+id/listDifficulties"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="198dp">
 
-        <ListView
-            android:id="@+id/listCategories"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="0px" />
-    </RelativeLayout>
+    </ListView>
+
+    <Button
+        android:id="@+id/buttonBeginQuiz"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Begin Quiz" />
 
 </LinearLayout>

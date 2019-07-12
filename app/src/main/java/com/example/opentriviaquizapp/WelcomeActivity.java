@@ -8,7 +8,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 
-
 public class WelcomeActivity extends AppCompatActivity {
 
     Button proceedButton;

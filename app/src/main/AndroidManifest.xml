@@ -19,6 +19,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".ChooseCategoryActivity" />
+        <activity android:name=".ChooseDifficultyActivity" />
     </application>
 
 </manifest>

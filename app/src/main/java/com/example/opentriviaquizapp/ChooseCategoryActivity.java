@@ -1,5 +1,6 @@
 package com.example.opentriviaquizapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -7,7 +8,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -21,7 +21,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-
 
 public class ChooseCategoryActivity extends AppCompatActivity {
 
@@ -79,10 +78,10 @@ public class ChooseCategoryActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 int categoryID = categoryIntegerArrayList.get(position);
                 SystemController.getINSTANCE().setCategoryID(categoryID);
-                Toast.makeText(getApplicationContext(), "ProjectID: " + categoryID, Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(ChooseCategoryActivity.this, ChooseDifficultyActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
             }
         });
     }
 }
-
-
