@@ -9,27 +9,35 @@
     tools:context=".WelcomeActivity">
 
 
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="374dp"
+            android:layout_height="251dp"
+            android:contentDescription="@string/todo"
+            android:src="@drawable/opentrivia"
+            app:srcCompat="@drawable/opentrivia" />
+
         <TextView
             android:id="@+id/textView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/welcome_to"
             android:textAlignment="center"
-            android:textSize="36sp" />
+            android:textSize="24sp" />
 
-        <ImageView
-            android:id="@+id/imageView"
+        <TextView
+            android:id="@+id/textView2"
             android:layout_width="match_parent"
-            android:layout_height="142dp"
-            android:src="@drawable/trivianerdlogo"
-            app:srcCompat="@drawable/trivianerdlogo"
-            android:contentDescription="@string/todo" />
+            android:layout_height="wrap_content"
+            android:text="Open Trivia Quiz Application"
+            android:textAlignment="center"
+            android:textSize="24sp" />
 
         <ProgressBar
             android:id="@+id/progressBar"
             style="?android:attr/progressBarStyle"
             android:layout_width="match_parent"
-            android:layout_height="91dp"
+            android:layout_height="wrap_content"
             android:visibility="invisible" />
 
         <EditText
@@ -45,7 +53,7 @@
         <Button
             android:id="@+id/proceedButton"
             android:layout_width="match_parent"
-            android:layout_height="61dp"
+            android:layout_height="53dp"
             android:text="@string/proceed"
             android:textSize="18sp" />
 
