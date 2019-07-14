@@ -7,6 +7,7 @@ import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.opentriviaquizapp.R;
 import com.example.opentriviaquizapp.models.MultipleQuestion;
@@ -71,6 +72,10 @@ public class MultipleQuizActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 SystemController.getINSTANCE().setStringAnswers(userAnswers);
+                Toast.makeText(getApplicationContext(), SystemController.getINSTANCE().getBooleanAnswers()
+                        + "\n" +
+                        userAnswers.toString(), Toast.LENGTH_SHORT).show();//to show the answers have been registered
+
             }
         });
 

@@ -15,10 +15,10 @@
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp"
-        android:background="@android:color/white"
+        android:background="@drawable/round_button"
         android:padding="5dp"
         android:text="Next"
-        android:textColor="@color/colorPrimaryDark"
+        android:textColor="@color/white"
         android:visibility="visible" />
 
     <Button
@@ -31,10 +31,10 @@
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp"
-        android:background="@android:color/white"
+        android:background="@drawable/round_button"
         android:padding="5dp"
         android:text="Previous"
-        android:textColor="@color/colorPrimaryDark"
+        android:textColor="@color/white"
         android:visibility="visible" />
 
     <Button
@@ -47,10 +47,10 @@
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp"
-        android:background="@android:color/white"
+        android:background="@drawable/round_button"
         android:padding="5dp"
         android:text="@string/proceed"
-        android:textColor="@color/colorPrimaryDark"
+        android:textColor="@color/white"
         android:visibility="invisible" />
 
     <android.support.v4.widget.NestedScrollView
