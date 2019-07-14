@@ -1,4 +1,4 @@
-package com.example.opentriviaquizapp;
+package com.example.opentriviaquizapp.system;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -15,8 +15,7 @@ public class DBHelper extends SQLiteOpenHelper {
     private static final String COLUMN_ID = "_id";
     private static final String COLUMN_USER_NAME = "author";
 
-    DBHelper(Context context)
-    {
+    public DBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
@@ -35,7 +34,7 @@ public class DBHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    boolean userExists(String userName){
+    public boolean userExists(String userName){
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor =  db.rawQuery("select * from "+ DATABASE_USERS_TABLE +
                 " WHERE " + COLUMN_USER_NAME + " = \"" +  userName + "\"" +
@@ -43,7 +42,7 @@ public class DBHelper extends SQLiteOpenHelper {
         return cursor != null && cursor.moveToFirst();
     }
 
-    boolean createUser(String name){
+    public boolean createUser(String name){
         ContentValues contentValues = new ContentValues();
         contentValues.put(COLUMN_USER_NAME, name.trim());
 

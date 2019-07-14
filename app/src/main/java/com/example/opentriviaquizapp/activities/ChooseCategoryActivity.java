@@ -1,4 +1,4 @@
-package com.example.opentriviaquizapp;
+package com.example.opentriviaquizapp.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,6 +8,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -15,6 +16,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.opentriviaquizapp.R;
+import com.example.opentriviaquizapp.system.SystemController;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -29,10 +32,15 @@ public class ChooseCategoryActivity extends AppCompatActivity {
     ArrayList<Integer> categoryIntegerArrayList;
     ListView categoriesListView;
 
+    ProgressBar category_loading_indicator;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_category);
+
+        category_loading_indicator = (ProgressBar) findViewById(R.id.category_loading_indicator);
+        category_loading_indicator.setVisibility(View.VISIBLE);
         categoryStringArrayList = new ArrayList<>();
         categoryIntegerArrayList = new ArrayList<>();
 
@@ -56,6 +64,7 @@ public class ChooseCategoryActivity extends AppCompatActivity {
                                 categoryStringArrayList.add(categoryName);
                             }
                             setupListView();
+                            category_loading_indicator.setVisibility(View.INVISIBLE);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

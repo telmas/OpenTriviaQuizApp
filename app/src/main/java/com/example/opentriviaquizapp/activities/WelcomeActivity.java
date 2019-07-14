@@ -1,4 +1,4 @@
-package com.example.opentriviaquizapp;
+package com.example.opentriviaquizapp.activities;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -7,6 +7,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+
+import com.example.opentriviaquizapp.system.DBHelper;
+import com.example.opentriviaquizapp.R;
+import com.example.opentriviaquizapp.system.SystemController;
 
 public class WelcomeActivity extends AppCompatActivity {
 
