@@ -10,10 +10,16 @@ public class DBHelper extends SQLiteOpenHelper {
 
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "records.db";
+
     private static final String DATABASE_USERS_TABLE = "users";
+    private static final String DATABASE_SCORES_TABLE = "scores";
 
     private static final String COLUMN_ID = "_id";
-    private static final String COLUMN_USER_NAME = "author";
+    private static final String COLUMN_USER_NAME = "user";
+
+    private static final String COLUMN_USER_SCORE = "score";
+    private static final String COLUMN_QUIZ_CATEGORY_ID = "categoryid";
+    private static final String COLUMN_QUIZ_DIFFICULTY_ID = "difficultyid";
 
     public DBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -25,12 +31,21 @@ public class DBHelper extends SQLiteOpenHelper {
                 COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 COLUMN_USER_NAME + " TEXT );";
 
+        String query2 = "CREATE TABLE "+ DATABASE_SCORES_TABLE + "(" +
+                COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                COLUMN_USER_NAME + " TEXT, " +
+                COLUMN_USER_SCORE + " INTEGER, " +
+                COLUMN_QUIZ_CATEGORY_ID + " INTEGER, " +
+                COLUMN_QUIZ_DIFFICULTY_ID + " INTEGER );";
+
         db.execSQL(query1);
+        db.execSQL(query2);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS "+ DATABASE_USERS_TABLE);
+        db.execSQL("DROP TABLE IF EXISTS "+ DATABASE_SCORES_TABLE);
         onCreate(db);
     }
 
@@ -48,6 +63,19 @@ public class DBHelper extends SQLiteOpenHelper {
 
         SQLiteDatabase db = getWritableDatabase();
         db.insert(DATABASE_USERS_TABLE, null, contentValues);
+        db.close();
+        return true;
+    }
+
+    public boolean storeUserScore(String userName, int score, int categoryId, int difficultyId){
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(COLUMN_USER_NAME, userName.trim());
+        contentValues.put(COLUMN_USER_SCORE, score);
+        contentValues.put(COLUMN_QUIZ_CATEGORY_ID, categoryId);
+        contentValues.put(COLUMN_QUIZ_DIFFICULTY_ID, difficultyId);
+
+        SQLiteDatabase db = getWritableDatabase();
+        db.insert(DATABASE_SCORES_TABLE, null, contentValues);
         db.close();
         return true;
     }

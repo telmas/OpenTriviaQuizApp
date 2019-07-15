@@ -57,8 +57,6 @@ public class ChooseDifficultyActivity extends AppCompatActivity {
         difficulty_loading_indicator.setVisibility(View.INVISIBLE);
     }
 
-
-
     private void jsonParse() {
         difficulty_loading_indicator.setVisibility(View.VISIBLE);
 
@@ -77,11 +75,6 @@ public class ChooseDifficultyActivity extends AppCompatActivity {
                             for (int i = 0; i < jsonArray.length(); i++) {
                                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                                 String question = jsonObject.getString("question");
-                                try {
-                                    question = java.net.URLDecoder.decode(question, "UTF-8");//check
-                                } catch (UnsupportedEncodingException e) {
-                                    e.printStackTrace();
-                                }
                                 boolean answer = jsonObject.getBoolean("correct_answer");
                                 questionsAndAnswers.add(new BooleanQuestion(question, answer));
                             }
@@ -101,15 +94,12 @@ public class ChooseDifficultyActivity extends AppCompatActivity {
         mQueue.add(request);
     }
 
-
     private void initiateQuiz(){
-//        if(SystemController.getINSTANCE().getBooleanQuestions()!=null) {
             Intent intent = new Intent(ChooseDifficultyActivity.this, TrueFalseQuizActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             difficulty_loading_indicator.setVisibility(View.INVISIBLE);
             startActivity(intent);
         }
-//    }
 }
 
 

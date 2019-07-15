@@ -1,16 +1,23 @@
 package com.example.opentriviaquizapp.activities;
 
+import android.content.DialogInterface;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.opentriviaquizapp.R;
+import com.example.opentriviaquizapp.models.BooleanQuestion;
 import com.example.opentriviaquizapp.models.MultipleQuestion;
+import com.example.opentriviaquizapp.system.DBHelper;
 import com.example.opentriviaquizapp.system.SystemController;
 
 import java.util.ArrayList;
@@ -34,6 +41,8 @@ public class MultipleQuizActivity extends AppCompatActivity {
     Button previousButton;
     Button submitButton;
 
+    DBHelper dataBase;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +54,8 @@ public class MultipleQuizActivity extends AppCompatActivity {
         answerHasBeenSet.add(false);
         answerHasBeenSet.add(false);
         answerHasBeenSet.add(false);
+
+        dataBase = new DBHelper(this);
 
         setup();
     }
@@ -68,14 +79,17 @@ public class MultipleQuizActivity extends AppCompatActivity {
         questionTextView = (TextView) findViewById(R.id.questionTextView);
         currentQuestionNumberTextView = (TextView) findViewById(R.id.currentQuestionNumberTextView);
 
-        submitButton.setOnClickListener(new View.OnClickListener() {
+        nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SystemController.getINSTANCE().setStringAnswers(userAnswers);
-                Toast.makeText(getApplicationContext(), SystemController.getINSTANCE().getBooleanAnswers()
-                        + "\n" +
-                        userAnswers.toString(), Toast.LENGTH_SHORT).show();//to show the answers have been registered
+                clickNext(v);
+            }
+        });
 
+        previousButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                clickPrev(v);
             }
         });
 
@@ -238,6 +252,92 @@ public class MultipleQuizActivity extends AppCompatActivity {
             }
         } catch (Exception e) {
             optionsRadioGroup.clearCheck();
+        }
+    }
+
+    public int getScore() {
+
+        ArrayList<BooleanQuestion> booleanCorrectAnswers = SystemController.getINSTANCE().getBooleanQuestions();
+
+        ArrayList<Boolean> booleanUserAnswers = SystemController.getINSTANCE().getBooleanAnswers();
+
+        ArrayList<MultipleQuestion> multipleCorrectAnswers = SystemController.getINSTANCE().getMultipleQuestions();
+
+        ArrayList<String> multipleUserAnswers = SystemController.getINSTANCE().getStringAnswers();
+
+        int score = 0;
+        for (int i = 0; i < 5; i++) {
+
+            if(booleanCorrectAnswers.get(i).isAnswer() == booleanUserAnswers.get(i)){
+                score++;
+            }
+            if(multipleCorrectAnswers.get(i).getCorrectOption().trim().equalsIgnoreCase(multipleUserAnswers.get(i).trim().toUpperCase())){
+                score++;
+            }
+        }
+        return score;
+    }
+
+    public void showScore(View view){
+        SystemController.getINSTANCE().setStringAnswers(userAnswers);
+
+        LayoutInflater inflater = getLayoutInflater();
+        View alertLayout = inflater.inflate(R.layout.dialog_score, null);
+
+        Drawable drawable = ContextCompat.getDrawable(getApplicationContext(), R.drawable.score_ring);
+        TextView scoreTextView = alertLayout.findViewById(R.id.scoreTextView);
+        ProgressBar progressBar = alertLayout.findViewById(R.id.ringProgressbar);
+
+        progressBar.setMax(10);
+        progressBar.setSecondaryProgress(10);
+
+        int score = getScore();
+        progressBar.setProgress(score);
+        progressBar.setProgressDrawable(drawable);
+        scoreTextView.setText(score + "/10");
+
+        AlertDialog.Builder scoreDialog = new AlertDialog.Builder(this);
+        scoreDialog.setTitle("SCORE");
+        scoreDialog.setView(alertLayout);
+        scoreDialog.setCancelable(false);
+
+        scoreDialog.setNegativeButton("Close", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                moveTaskToBack(true);
+                android.os.Process.killProcess(android.os.Process.myPid());
+                System.exit(1);
+            }
+        });
+
+        scoreDialog.setPositiveButton("Check Solutions", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                //redirect to solutions
+            }
+        });
+
+        int difficultyId;
+        switch(SystemController.getINSTANCE().getDifficulty().toUpperCase()) {
+            case "EASY":
+                difficultyId = 0;
+                break;
+            case "MEDIUM":
+                difficultyId = 1;
+                break;
+            case "HARD":
+                difficultyId = 2;
+                break;
+            default:
+                difficultyId = -1;
+                break;
+        }
+        if(dataBase.storeUserScore(SystemController.getINSTANCE().getUserName().trim(), score,
+                SystemController.getINSTANCE().getCategoryID(), difficultyId)) {
+
+            AlertDialog dialog = scoreDialog.create();
+            dialog.show();
         }
     }
 }
