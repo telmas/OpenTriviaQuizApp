@@ -11,8 +11,9 @@
 
         <ImageView
             android:id="@+id/imageView"
-            android:layout_width="389dp"
-            android:layout_height="264dp"
+            android:layout_width="match_parent"
+            android:layout_height="271dp"
+            android:layout_gravity="start|top|fill_vertical"
             android:contentDescription="@string/todo"
             android:src="@drawable/opentrivia"
             app:srcCompat="@drawable/opentrivia" />
@@ -53,7 +54,7 @@
 
         <Button
             android:id="@+id/proceedButton"
-            android:layout_width="match_parent"
+            android:layout_width="131dp"
             android:layout_height="53dp"
             android:background="@drawable/round_button"
             android:text="@string/proceed"

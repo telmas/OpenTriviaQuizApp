@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="0dp"
-        android:text="  Choose category:"
+        android:text="  Solutions:"
         android:textSize="24sp"
         android:textStyle="bold" />
 
@@ -20,7 +20,7 @@
         android:layout_height="match_parent">
 
         <ProgressBar
-            android:id="@+id/category_loading_indicator"
+            android:id="@+id/solutions_loading_indicator"
             style="@style/Widget.AppCompat.ProgressBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -28,10 +28,10 @@
             android:visibility="invisible" />
 
         <ListView
-            android:id="@+id/listCategories"
+            android:id="@+id/listSolutions"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="0px" />
+            android:layout_height="match_parent" />
+
     </RelativeLayout>
 
 </LinearLayout>

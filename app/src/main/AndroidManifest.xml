@@ -22,6 +22,7 @@
         <activity android:name=".activities.ChooseDifficultyActivity" />
         <activity android:name=".activities.TrueFalseQuizActivity" />
         <activity android:name=".activities.MultipleQuizActivity" />
+        <activity android:name=".activities.ViewSolutionsActivity" />
     </application>
 
 </manifest>

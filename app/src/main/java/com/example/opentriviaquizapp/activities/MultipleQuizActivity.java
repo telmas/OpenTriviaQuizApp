@@ -1,6 +1,7 @@
 package com.example.opentriviaquizapp.activities;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
@@ -313,8 +314,9 @@ public class MultipleQuizActivity extends AppCompatActivity {
         scoreDialog.setPositiveButton("Check Solutions", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-
-                //redirect to solutions
+                Intent intent = new Intent(MultipleQuizActivity.this, ViewSolutionsActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
             }
         });
 
