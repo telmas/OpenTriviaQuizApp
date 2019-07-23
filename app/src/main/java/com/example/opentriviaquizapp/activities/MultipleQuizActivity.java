@@ -31,6 +31,10 @@ public class MultipleQuizActivity extends AppCompatActivity {
     private String currentQuestionNumberDescription;
     private int counter = 0;
 
+    private boolean perfectTruthPrizeWon;
+    private boolean perfectChoicePrizeWon;
+    private boolean perfectQuizPrizeWon;
+
     TextView currentQuestionNumberTextView;
     TextView questionTextView;
     RadioButton optionARadioButton;
@@ -267,15 +271,20 @@ public class MultipleQuizActivity extends AppCompatActivity {
         ArrayList<String> multipleUserAnswers = SystemController.getINSTANCE().getStringAnswers();
 
         int score = 0;
+        int booleanScore = 0;
+        int multipleScore = 0;
         for (int i = 0; i < 5; i++) {
 
             if(booleanCorrectAnswers.get(i).isAnswer() == booleanUserAnswers.get(i)){
                 score++;
+                booleanScore++;
             }
             if(multipleCorrectAnswers.get(i).getCorrectOption().trim().equalsIgnoreCase(multipleUserAnswers.get(i).trim().toUpperCase())){
                 score++;
+                multipleScore++;
             }
         }
+        setPrizes(booleanScore, multipleScore, score);
         return score;
     }
 
@@ -299,6 +308,7 @@ public class MultipleQuizActivity extends AppCompatActivity {
 
         AlertDialog.Builder scoreDialog = new AlertDialog.Builder(this);
         scoreDialog.setTitle("SCORE");
+        scoreDialog.setMessage(getPrizesWonMessage());
         scoreDialog.setView(alertLayout);
         scoreDialog.setCancelable(false);
 
@@ -341,6 +351,35 @@ public class MultipleQuizActivity extends AppCompatActivity {
             AlertDialog dialog = scoreDialog.create();
             dialog.show();
         }
+    }
+
+    private void setPrizes(int booleanScore, int multipleScore, int fullScore){
+        if(booleanScore == 5){
+            perfectTruthPrizeWon = true;
+        }
+        if(multipleScore == 5){
+            perfectChoicePrizeWon = true;
+        }
+        if(fullScore == 10){
+            perfectQuizPrizeWon = true;
+        }
+    }
+
+    private String getPrizesWonMessage(){
+        String message = "";
+        if(perfectTruthPrizeWon || perfectChoicePrizeWon){
+            message += "Congratulations! You won these prizes:\n";
+        }
+        if(perfectTruthPrizeWon){
+            message += "\"Perfect Truth!\"\n";
+        }
+        if(perfectChoicePrizeWon){
+            message += "\"Perfect Choice!\"\n";
+        }
+        if(perfectQuizPrizeWon){
+            message += "\"Perfect Quiz!\"\n";
+        }
+        return message;
     }
 }
 
