@@ -44,18 +44,16 @@ public class WelcomeActivity extends AppCompatActivity {
                     return;
                 }
 
+
+                if(!dataBase.userExists(name)) {
+                    dataBase.createUser(name);
+                }
+                Intent intent = new Intent(WelcomeActivity.this, HomeActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+
                 SystemController.getINSTANCE().setUserName(name);
 
-                if(!dataBase.userExists(name)){
-                    dataBase.createUser(name);
-                    Intent intent = new Intent(WelcomeActivity.this, ChooseCategoryActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(intent);
-                } else {
-                    Intent intent = new Intent(WelcomeActivity.this, ChooseCategoryActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(intent);
-                }
                 progressBar.setVisibility(View.GONE);
             }
         });

@@ -24,6 +24,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class ChooseCategoryActivity extends AppCompatActivity {
 
@@ -50,6 +51,7 @@ public class ChooseCategoryActivity extends AppCompatActivity {
 
     private void jsonParse() {
         String url = "https://opentdb.com/api_category.php";
+         final HashMap<Integer, String> map = new HashMap<>();
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
                     @Override
@@ -62,8 +64,10 @@ public class ChooseCategoryActivity extends AppCompatActivity {
                                 String categoryName = jsonObject.getString("name");
                                 categoryIntegerArrayList.add(categoryId);
                                 categoryStringArrayList.add(categoryName);
+                                map.put(categoryId, categoryName);
                             }
                             setupListView();
+                            SystemController.getINSTANCE().setFetchedCategories(map);
                             category_loading_indicator.setVisibility(View.INVISIBLE);
                         } catch (JSONException e) {
                             e.printStackTrace();

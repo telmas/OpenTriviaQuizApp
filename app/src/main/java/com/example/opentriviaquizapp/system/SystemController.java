@@ -4,6 +4,7 @@ import com.example.opentriviaquizapp.models.BooleanQuestion;
 import com.example.opentriviaquizapp.models.MultipleQuestion;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class SystemController {
 
@@ -14,6 +15,7 @@ public class SystemController {
     private ArrayList<Boolean> booleanAnswers;
     private ArrayList<MultipleQuestion> multipleQuestions;
     private  ArrayList<String> stringAnswers;
+    private HashMap<Integer, String> fetchedCategories;
 
     private static final SystemController INSTANCE = new SystemController();
 
@@ -76,5 +78,16 @@ public class SystemController {
 
     public void setStringAnswers(ArrayList<String> stringAnswers) {
         this.stringAnswers = stringAnswers;
+    }
+
+    public HashMap<Integer, String> getFetchedCategories() {
+        if(this.fetchedCategories == null){
+            return new HashMap<>();
+        }
+        return fetchedCategories;
+    }
+
+    public void setFetchedCategories(HashMap<Integer, String> fetchedCategories) {
+        this.fetchedCategories = fetchedCategories;
     }
 }

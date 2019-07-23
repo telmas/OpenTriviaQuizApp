@@ -1,7 +1,9 @@
 package com.example.opentriviaquizapp.activities;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
@@ -24,7 +26,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
 public class ChooseDifficultyActivity extends AppCompatActivity {
@@ -70,20 +71,37 @@ public class ChooseDifficultyActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
-                            JSONArray jsonArray = response.getJSONArray("results");
-                            questionsAndAnswers = new ArrayList<>();
-                            for (int i = 0; i < jsonArray.length(); i++) {
-                                JSONObject jsonObject = jsonArray.getJSONObject(i);
-                                String question = jsonObject.getString("question");
-                                boolean answer = jsonObject.getBoolean("correct_answer");
-                                questionsAndAnswers.add(new BooleanQuestion(question, answer));
+                            int responseCode = response.getInt("response_code");
+                            if(responseCode != 1) {
+                                JSONArray jsonArray = response.getJSONArray("results");
+                                questionsAndAnswers = new ArrayList<>();
+                                for (int i = 0; i < jsonArray.length(); i++) {
+                                    JSONObject jsonObject = jsonArray.getJSONObject(i);
+                                    String question = jsonObject.getString("question");
+                                    boolean answer = jsonObject.getBoolean("correct_answer");
+                                    questionsAndAnswers.add(new BooleanQuestion(question, answer));
+                                }
+                                SystemController.getINSTANCE().setBooleanQuestions(questionsAndAnswers);
+                                initiateQuiz();
+                            } else {
+                                AlertDialog alertDialog = new AlertDialog.Builder(ChooseDifficultyActivity.this).create();
+                                alertDialog.setTitle("API Failure!");
+                                alertDialog.setMessage("Cannot find quiz from selected category of this difficulty at the moment. Try again.");
+                                alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                                        new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                dialog.dismiss();
+                                                Intent intent = new Intent(ChooseDifficultyActivity.this, ChooseCategoryActivity.class);
+                                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                                difficulty_loading_indicator.setVisibility(View.INVISIBLE);
+                                                startActivity(intent);
+                                            }
+                                        });
+                                alertDialog.show();
                             }
-                            SystemController.getINSTANCE().setBooleanQuestions(questionsAndAnswers);
-
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-                        initiateQuiz();
                     }
                 }, new Response.ErrorListener() {
             @Override

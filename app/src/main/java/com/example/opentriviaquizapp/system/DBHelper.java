@@ -79,4 +79,16 @@ public class DBHelper extends SQLiteOpenHelper {
         db.close();
         return true;
     }
+
+    public Cursor getPrevUserScores(String userName){
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res =  db.rawQuery("select " + COLUMN_QUIZ_CATEGORY_ID +", " +
+                        COLUMN_QUIZ_DIFFICULTY_ID + ", " +
+                COLUMN_USER_SCORE + ", " + COLUMN_ID +
+                " from "+ DATABASE_SCORES_TABLE +
+                " where " + COLUMN_USER_NAME + " = \"" + userName.trim() + "\" " +
+                " order by " + COLUMN_ID + " desc", null);
+        return res;
+    }
 }

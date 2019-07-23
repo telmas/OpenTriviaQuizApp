@@ -302,12 +302,12 @@ public class MultipleQuizActivity extends AppCompatActivity {
         scoreDialog.setView(alertLayout);
         scoreDialog.setCancelable(false);
 
-        scoreDialog.setNegativeButton("Close", new DialogInterface.OnClickListener() {
+        scoreDialog.setNegativeButton("Home", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                moveTaskToBack(true);
-                android.os.Process.killProcess(android.os.Process.myPid());
-                System.exit(1);
+                Intent intent = new Intent(MultipleQuizActivity.this, HomeActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
             }
         });
 

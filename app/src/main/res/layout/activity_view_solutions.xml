@@ -6,6 +6,14 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <Button
+        android:id="@+id/buttonReturnHome"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorAccent"
+        android:text="Return Home"
+        android:textColor="@color/white" />
+
     <TextView
         android:id="@+id/textView4"
         android:layout_width="match_parent"
@@ -17,7 +25,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <ProgressBar
             android:id="@+id/solutions_loading_indicator"
@@ -30,7 +38,9 @@
         <ListView
             android:id="@+id/listSolutions"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="wrap_content">
+
+        </ListView>
 
     </RelativeLayout>
 

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:layout_weight="7"
+    android:background="@android:color/transparent"
+    android:backgroundTint="@color/dark"
+    android:baselineAligned="false"
+    android:descendantFocusability="blocksDescendants"
+    android:gravity="center|top|fill_vertical"
+    android:orientation="vertical"
+    android:padding="8dp">
+
+
+    <TextView
+        android:id="@+id/category"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:maxLines="@android:integer/config_mediumAnimTime"
+        android:text="category"
+        android:textColor="@color/colorAccent"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/difficulty"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:ellipsize="end"
+        android:maxLines="@android:integer/config_mediumAnimTime"
+        android:scrollHorizontally="true"
+        android:shadowColor="#000"
+        android:shadowRadius="1.0"
+        android:text="difficulty"
+        android:textColor="#666666"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/score"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:maxLines="@android:integer/config_mediumAnimTime"
+        android:scrollHorizontally="true"
+        android:text="score"
+        android:textColor="#777777"
+        android:textSize="20sp" />
+
+
+</LinearLayout>
+
+
+
+
