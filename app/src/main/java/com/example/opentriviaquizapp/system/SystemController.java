@@ -17,6 +17,9 @@ public class SystemController {
     private  ArrayList<String> stringAnswers;
     private HashMap<Integer, String> fetchedCategories;
 
+    private ArrayList<String> categoryStringArrayList;
+    private ArrayList<Integer> categoryIntegerArrayList;
+
     private static final SystemController INSTANCE = new SystemController();
 
     public static SystemController getINSTANCE() {
@@ -89,5 +92,21 @@ public class SystemController {
 
     public void setFetchedCategories(HashMap<Integer, String> fetchedCategories) {
         this.fetchedCategories = fetchedCategories;
+    }
+
+    public ArrayList<String> getCategoryStringArrayList() {
+        return categoryStringArrayList;
+    }
+
+    public void setCategoryStringArrayList(ArrayList<String> categoryStringArrayList) {
+        this.categoryStringArrayList = categoryStringArrayList;
+    }
+
+    public ArrayList<Integer> getCategoryIntegerArrayList() {
+        return categoryIntegerArrayList;
+    }
+
+    public void setCategoryIntegerArrayList(ArrayList<Integer> categoryIntegerArrayList) {
+        this.categoryIntegerArrayList = categoryIntegerArrayList;
     }
 }

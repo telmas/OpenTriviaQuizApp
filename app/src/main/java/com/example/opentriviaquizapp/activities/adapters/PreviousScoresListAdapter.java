@@ -1,4 +1,4 @@
-package com.example.opentriviaquizapp.activities;
+package com.example.opentriviaquizapp.activities.adapters;
 
 import android.app.Activity;
 import android.view.LayoutInflater;
@@ -13,7 +13,7 @@ import com.example.opentriviaquizapp.models.ScoreRecord;
 import java.util.ArrayList;
 
 
-class PreviousScoresListAdapter extends BaseAdapter {
+public class PreviousScoresListAdapter extends BaseAdapter {
     private Activity activity;
 
     private ArrayList<ScoreRecord> scores;

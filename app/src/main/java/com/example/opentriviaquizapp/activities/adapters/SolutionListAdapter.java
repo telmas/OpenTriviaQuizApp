@@ -1,4 +1,4 @@
-package com.example.opentriviaquizapp.activities;
+package com.example.opentriviaquizapp.activities.adapters;
 
 import android.app.Activity;
 
@@ -17,7 +17,7 @@ import com.example.opentriviaquizapp.system.SystemController;
 import java.util.ArrayList;
 
 
-class SolutionListAdapter extends BaseAdapter {
+public class SolutionListAdapter extends BaseAdapter {
     private Activity activity;
 
     private ArrayList<String> questions;

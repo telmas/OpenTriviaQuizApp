@@ -10,6 +10,7 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 
 import com.example.opentriviaquizapp.R;
+import com.example.opentriviaquizapp.activities.adapters.PreviousScoresListAdapter;
 import com.example.opentriviaquizapp.models.ScoreRecord;
 import com.example.opentriviaquizapp.system.DBHelper;
 import com.example.opentriviaquizapp.system.SystemController;

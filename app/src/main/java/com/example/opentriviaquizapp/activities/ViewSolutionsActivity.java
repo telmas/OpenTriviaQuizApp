@@ -10,6 +10,7 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 
 import com.example.opentriviaquizapp.R;
+import com.example.opentriviaquizapp.activities.adapters.SolutionListAdapter;
 
 public class ViewSolutionsActivity extends AppCompatActivity {
 
