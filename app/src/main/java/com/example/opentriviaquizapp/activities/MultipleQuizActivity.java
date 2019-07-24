@@ -14,6 +14,7 @@ import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.opentriviaquizapp.R;
 import com.example.opentriviaquizapp.models.BooleanQuestion;
@@ -34,6 +35,8 @@ public class MultipleQuizActivity extends AppCompatActivity {
     private boolean perfectTruthPrizeWon;
     private boolean perfectChoicePrizeWon;
     private boolean perfectQuizPrizeWon;
+
+    private boolean disableBackButton;
 
     TextView currentQuestionNumberTextView;
     TextView questionTextView;
@@ -61,6 +64,8 @@ public class MultipleQuizActivity extends AppCompatActivity {
         answerHasBeenSet.add(false);
 
         dataBase = new DBHelper(this);
+
+        disableBackButton = false;
 
         setup();
     }
@@ -263,11 +268,10 @@ public class MultipleQuizActivity extends AppCompatActivity {
     public int getScore() {
 
         ArrayList<BooleanQuestion> booleanCorrectAnswers = SystemController.getINSTANCE().getBooleanQuestions();
-
         ArrayList<Boolean> booleanUserAnswers = SystemController.getINSTANCE().getBooleanAnswers();
+        ArrayList<Boolean> booleanAnswersHaveBeenSet = SystemController.getINSTANCE().getBooleanAnswersHaveBeenSet();
 
         ArrayList<MultipleQuestion> multipleCorrectAnswers = SystemController.getINSTANCE().getMultipleQuestions();
-
         ArrayList<String> multipleUserAnswers = SystemController.getINSTANCE().getStringAnswers();
 
         int score = 0;
@@ -275,7 +279,7 @@ public class MultipleQuizActivity extends AppCompatActivity {
         int multipleScore = 0;
         for (int i = 0; i < 5; i++) {
 
-            if(booleanCorrectAnswers.get(i).isAnswer() == booleanUserAnswers.get(i)){
+            if((booleanCorrectAnswers.get(i).isAnswer() == booleanUserAnswers.get(i)) && booleanAnswersHaveBeenSet.get(i)){
                 score++;
                 booleanScore++;
             }
@@ -350,18 +354,25 @@ public class MultipleQuizActivity extends AppCompatActivity {
 
             AlertDialog dialog = scoreDialog.create();
             dialog.show();
+            disableBackButton = true;
         }
     }
 
     private void setPrizes(int booleanScore, int multipleScore, int fullScore){
-        if(booleanScore == 5){
-            perfectTruthPrizeWon = true;
+        if(booleanScore == 5 && !dataBase.hasWonPrize(SystemController.getINSTANCE().getUserName(), 0)){
+            if(dataBase.storePrize(SystemController.getINSTANCE().getUserName(), 0, "Perfect Truth")) {
+                perfectTruthPrizeWon = true;
+            }
         }
-        if(multipleScore == 5){
-            perfectChoicePrizeWon = true;
+        if(multipleScore == 5 && !dataBase.hasWonPrize(SystemController.getINSTANCE().getUserName(), 1)){
+            if(dataBase.storePrize(SystemController.getINSTANCE().getUserName(), 1, "Perfect Choice")){
+                perfectChoicePrizeWon = true;
+            }
         }
-        if(fullScore == 10){
-            perfectQuizPrizeWon = true;
+        if(fullScore == 10 && !dataBase.hasWonPrize(SystemController.getINSTANCE().getUserName(), 2)){
+            if(dataBase.storePrize(SystemController.getINSTANCE().getUserName(), 2, "Perfect Quiz")){
+                perfectQuizPrizeWon = true;
+            }
         }
     }
 
@@ -380,6 +391,15 @@ public class MultipleQuizActivity extends AppCompatActivity {
             message += "\"Perfect Quiz!\"\n";
         }
         return message;
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(disableBackButton){
+            Toast.makeText(this, "Quiz is finished. Cannot go back.", Toast.LENGTH_LONG).show();
+        } else {
+            super.onBackPressed();
+        }
     }
 }
 

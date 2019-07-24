@@ -26,6 +26,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
 public class ChooseDifficultyActivity extends AppCompatActivity {
@@ -65,7 +66,7 @@ public class ChooseDifficultyActivity extends AppCompatActivity {
                 SystemController.getINSTANCE().getCategoryID() +
                 "&difficulty=" +
                 SystemController.getINSTANCE().getDifficulty() +
-                "&type=boolean";
+                "&type=boolean&encode=url3986";
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
                     @Override
@@ -77,7 +78,12 @@ public class ChooseDifficultyActivity extends AppCompatActivity {
                                 questionsAndAnswers = new ArrayList<>();
                                 for (int i = 0; i < jsonArray.length(); i++) {
                                     JSONObject jsonObject = jsonArray.getJSONObject(i);
-                                    String question = jsonObject.getString("question");
+                                    String question = null;
+                                    try {
+                                        question = java.net.URLDecoder.decode(jsonObject.getString("question"), "UTF-8");
+                                    } catch (UnsupportedEncodingException e) {
+                                        e.printStackTrace();
+                                    }
                                     boolean answer = jsonObject.getBoolean("correct_answer");
                                     questionsAndAnswers.add(new BooleanQuestion(question, answer));
                                 }

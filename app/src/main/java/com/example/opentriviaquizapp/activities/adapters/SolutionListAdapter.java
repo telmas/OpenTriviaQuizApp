@@ -32,13 +32,15 @@ public class SolutionListAdapter extends BaseAdapter {
 
         ArrayList<BooleanQuestion> booleanCorrectAnswers = SystemController.getINSTANCE().getBooleanQuestions();
         ArrayList<Boolean> booleanUserAnswers = SystemController.getINSTANCE().getBooleanAnswers();
+        ArrayList<Boolean> booleanAnswersHaveBeenSet = SystemController.getINSTANCE().getBooleanAnswersHaveBeenSet();
+
         ArrayList<MultipleQuestion> multipleCorrectAnswers = SystemController.getINSTANCE().getMultipleQuestions();
         ArrayList<String> multipleUserAnswers = SystemController.getINSTANCE().getStringAnswers();
 
         for (int i = 0; i < 5; i++) {
             questions.add(booleanCorrectAnswers.get(i).getQuestionedStatement());
             correctAnswers.add(String.valueOf(booleanCorrectAnswers.get(i).isAnswer()));
-            userAnswers.add(booleanUserAnswers.get(i).toString());
+            userAnswers.add(booleanAnswersHaveBeenSet.get(i) ? booleanUserAnswers.get(i).toString() : "");
         }
 
         for (int i = 0; i < 5; i++) {

@@ -71,7 +71,7 @@
                 android:layout_marginStart="5dp"
                 android:padding="10dp"
                 android:textColor="@color/colorPrimaryDark"
-                android:textSize="15sp" />
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/questionTextView"
@@ -80,7 +80,7 @@
                 android:layout_marginStart="5dp"
                 android:padding="10dp"
                 android:textColor="@color/colorPrimaryDark"
-                android:textSize="15sp" />
+                android:textSize="18sp" />
 
             <RadioGroup
                 android:id="@+id/optionsRadioGroup"
@@ -97,7 +97,7 @@
                     android:padding="10dp"
                     android:text="True"
                     android:textColor="@color/colorPrimaryDark"
-                    android:textSize="15sp" />
+                    android:textSize="18sp" />
 
                 <RadioButton
                     android:id="@+id/falseOptionRadioButtonB"
@@ -108,7 +108,7 @@
                     android:padding="10dp"
                     android:text="False"
                     android:textColor="@color/colorPrimaryDark"
-                    android:textSize="15sp" />
+                    android:textSize="18sp" />
 
             </RadioGroup>
 

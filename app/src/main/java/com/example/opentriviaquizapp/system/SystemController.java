@@ -13,8 +13,9 @@ public class SystemController {
     private String difficulty;
     private ArrayList<BooleanQuestion> booleanQuestions;
     private ArrayList<Boolean> booleanAnswers;
+    private ArrayList<Boolean> booleanAnswersHaveBeenSet;
     private ArrayList<MultipleQuestion> multipleQuestions;
-    private  ArrayList<String> stringAnswers;
+    private ArrayList<String> stringAnswers;
     private HashMap<Integer, String> fetchedCategories;
 
     private ArrayList<String> categoryStringArrayList;
@@ -108,5 +109,13 @@ public class SystemController {
 
     public void setCategoryIntegerArrayList(ArrayList<Integer> categoryIntegerArrayList) {
         this.categoryIntegerArrayList = categoryIntegerArrayList;
+    }
+
+    public ArrayList<Boolean> getBooleanAnswersHaveBeenSet() {
+        return booleanAnswersHaveBeenSet;
+    }
+
+    public void setBooleanAnswersHaveBeenSet(ArrayList<Boolean> booleanAnswersHaveBeenSet) {
+        this.booleanAnswersHaveBeenSet = booleanAnswersHaveBeenSet;
     }
 }

@@ -25,6 +25,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -73,7 +74,7 @@ public class TrueFalseQuizActivity extends AppCompatActivity {
                 SystemController.getINSTANCE().getCategoryID() +
                 "&difficulty=" +
                 SystemController.getINSTANCE().getDifficulty() +
-                "&type=multiple";
+                "&type=multiple&encode=url3986";
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
                     @Override
@@ -83,12 +84,15 @@ public class TrueFalseQuizActivity extends AppCompatActivity {
                             multipleQuestionsAndAnswersArrayList = new ArrayList<>();
                             for (int i = 0; i < jsonArray.length(); i++) {
                                 JSONObject jsonObject = jsonArray.getJSONObject(i);
-                                String question = jsonObject.getString("question");
-                                String answer = jsonObject.getString("correct_answer");
+                                String question = null;
+                                try {
+                                    question = java.net.URLDecoder.decode(jsonObject.getString("question"),"UTF-8");
+
+                                String answer = java.net.URLDecoder.decode(jsonObject.getString("correct_answer"),"UTF-8");
                                 JSONArray incorrectAnswers = jsonObject.getJSONArray("incorrect_answers");
-                                String incorrectAnswer0 = incorrectAnswers.getString(0);
-                                String incorrectAnswer1 = incorrectAnswers.getString(1);
-                                String incorrectAnswer2 = incorrectAnswers.getString(2);
+                                String incorrectAnswer0 = java.net.URLDecoder.decode(incorrectAnswers.getString(0),"UTF-8");
+                                String incorrectAnswer1 = java.net.URLDecoder.decode(incorrectAnswers.getString(1),"UTF-8");
+                                String incorrectAnswer2 = java.net.URLDecoder.decode(incorrectAnswers.getString(2),"UTF-8");
                                 String[] options = {answer, incorrectAnswer0, incorrectAnswer1, incorrectAnswer2};
                                 Collections.shuffle(Arrays.asList(options));
                                 MultipleQuestion multipleQuestion = new MultipleQuestion();
@@ -99,6 +103,9 @@ public class TrueFalseQuizActivity extends AppCompatActivity {
                                 multipleQuestion.populateOptions(2,options[2]);
                                 multipleQuestion.populateOptions(3,options[3]);
                                 multipleQuestionsAndAnswersArrayList.add(multipleQuestion);
+                                } catch (UnsupportedEncodingException e) {
+                                    e.printStackTrace();
+                                }
                             }
                             SystemController.getINSTANCE().setMultipleQuestions(multipleQuestionsAndAnswersArrayList);
                         } catch (JSONException e) {
@@ -149,6 +156,7 @@ public class TrueFalseQuizActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 SystemController.getINSTANCE().setBooleanAnswers(userAnswers);
+                SystemController.getINSTANCE().setBooleanAnswersHaveBeenSet(answerHasBeenSet);
                 Intent intent = new Intent(TrueFalseQuizActivity.this, MultipleQuizActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);

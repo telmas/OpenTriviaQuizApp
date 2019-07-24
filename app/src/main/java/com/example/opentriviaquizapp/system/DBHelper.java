@@ -8,11 +8,12 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class DBHelper extends SQLiteOpenHelper {
 
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
     private static final String DATABASE_NAME = "records.db";
 
     private static final String DATABASE_USERS_TABLE = "users";
     private static final String DATABASE_SCORES_TABLE = "scores";
+    private static final String DATABASE_PRIZES_TABLE = "prizes";
 
     private static final String COLUMN_ID = "_id";
     private static final String COLUMN_USER_NAME = "user";
@@ -20,6 +21,10 @@ public class DBHelper extends SQLiteOpenHelper {
     private static final String COLUMN_USER_SCORE = "score";
     private static final String COLUMN_QUIZ_CATEGORY_ID = "categoryid";
     private static final String COLUMN_QUIZ_DIFFICULTY_ID = "difficultyid";
+
+    private static final String COLUMN_PRIZE_ID = "prizeid";
+    private static final String COLUMN_PRIZE_DESCRIPTION = "prizedescription";
+
 
     public DBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -38,14 +43,22 @@ public class DBHelper extends SQLiteOpenHelper {
                 COLUMN_QUIZ_CATEGORY_ID + " INTEGER, " +
                 COLUMN_QUIZ_DIFFICULTY_ID + " INTEGER );";
 
+        String query3 = "CREATE TABLE "+ DATABASE_PRIZES_TABLE + "(" +
+                COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                COLUMN_USER_NAME + " TEXT , " +
+                COLUMN_PRIZE_ID + " INTEGER, " +
+                COLUMN_PRIZE_DESCRIPTION + " TEXT );";
+
         db.execSQL(query1);
         db.execSQL(query2);
+        db.execSQL(query3);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS "+ DATABASE_USERS_TABLE);
         db.execSQL("DROP TABLE IF EXISTS "+ DATABASE_SCORES_TABLE);
+        db.execSQL("DROP TABLE IF EXISTS "+ DATABASE_PRIZES_TABLE);
         onCreate(db);
     }
 
@@ -83,12 +96,34 @@ public class DBHelper extends SQLiteOpenHelper {
     public Cursor getPrevUserScores(String userName){
 
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res =  db.rawQuery("select " + COLUMN_QUIZ_CATEGORY_ID +", " +
+        return db.rawQuery("select " + COLUMN_QUIZ_CATEGORY_ID +", " +
                         COLUMN_QUIZ_DIFFICULTY_ID + ", " +
                 COLUMN_USER_SCORE + ", " + COLUMN_ID +
                 " from "+ DATABASE_SCORES_TABLE +
                 " where " + COLUMN_USER_NAME + " = \"" + userName.trim() + "\" " +
                 " order by " + COLUMN_ID + " desc", null);
-        return res;
     }
+
+    public boolean hasWonPrize(String username, int prizeid){
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor =  db.rawQuery("select " + COLUMN_PRIZE_ID + " from "+ DATABASE_PRIZES_TABLE +
+                " WHERE " + COLUMN_USER_NAME + " = \"" +  username + "\"" +
+                " AND " + COLUMN_PRIZE_ID + " = " + prizeid +
+                " order by " + COLUMN_ID + " desc limit 1", null);
+        return cursor != null && cursor.moveToFirst();
+    }
+
+    public boolean storePrize(String username, int prizeid, String description){
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(COLUMN_USER_NAME, username.trim());
+        contentValues.put(COLUMN_PRIZE_ID, prizeid);
+        contentValues.put(COLUMN_PRIZE_DESCRIPTION, description);
+
+        SQLiteDatabase db = getWritableDatabase();
+        db.insert(DATABASE_PRIZES_TABLE, null, contentValues);
+        db.close();
+        return true;
+    }
+
 }

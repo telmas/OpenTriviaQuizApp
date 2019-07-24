@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.example.opentriviaquizapp.R;
 import com.example.opentriviaquizapp.activities.adapters.SolutionListAdapter;
@@ -41,5 +42,10 @@ public class ViewSolutionsActivity extends AppCompatActivity {
         SolutionListAdapter adapter = new SolutionListAdapter(this);
 
         listNews.setAdapter(adapter);
+    }
+
+    @Override
+    public void onBackPressed() {
+        Toast.makeText(this, "Quiz is finished. Cannot go back.", Toast.LENGTH_LONG).show();
     }
 }
