@@ -8,7 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class DBHelper extends SQLiteOpenHelper {
 
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 3;
     private static final String DATABASE_NAME = "records.db";
 
     private static final String DATABASE_USERS_TABLE = "users";
@@ -23,6 +23,7 @@ public class DBHelper extends SQLiteOpenHelper {
     private static final String COLUMN_QUIZ_DIFFICULTY_ID = "difficultyid";
 
     private static final String COLUMN_PRIZE_ID = "prizeid";
+    private static final String COLUMN_PRIZE_NAME = "prizename";
     private static final String COLUMN_PRIZE_DESCRIPTION = "prizedescription";
 
 
@@ -47,6 +48,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 COLUMN_USER_NAME + " TEXT , " +
                 COLUMN_PRIZE_ID + " INTEGER, " +
+                COLUMN_PRIZE_NAME + " TEXT , " +
                 COLUMN_PRIZE_DESCRIPTION + " TEXT );";
 
         db.execSQL(query1);
@@ -114,11 +116,12 @@ public class DBHelper extends SQLiteOpenHelper {
         return cursor != null && cursor.moveToFirst();
     }
 
-    public boolean storePrize(String username, int prizeid, String description){
+    public boolean storePrize(String username, int prizeid, String prizeName, String prizeDescription){
         ContentValues contentValues = new ContentValues();
         contentValues.put(COLUMN_USER_NAME, username.trim());
         contentValues.put(COLUMN_PRIZE_ID, prizeid);
-        contentValues.put(COLUMN_PRIZE_DESCRIPTION, description);
+        contentValues.put(COLUMN_PRIZE_NAME, prizeName);
+        contentValues.put(COLUMN_PRIZE_DESCRIPTION, prizeDescription);
 
         SQLiteDatabase db = getWritableDatabase();
         db.insert(DATABASE_PRIZES_TABLE, null, contentValues);
@@ -130,6 +133,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
         SQLiteDatabase db = this.getReadableDatabase();
         return db.rawQuery("select " + COLUMN_PRIZE_ID +", " +
+                COLUMN_PRIZE_NAME + ", " +
                 COLUMN_PRIZE_DESCRIPTION + ", " +
                 COLUMN_ID +
                 " from "+ DATABASE_PRIZES_TABLE +

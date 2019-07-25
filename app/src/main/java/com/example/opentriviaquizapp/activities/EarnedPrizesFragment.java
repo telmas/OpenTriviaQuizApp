@@ -66,9 +66,11 @@ public class EarnedPrizesFragment extends Fragment {
             cursor.moveToFirst();
             while (!cursor.isAfterLast()) {
                 int prizeId = cursor.getInt(0);
-                String prizeDescription = cursor.getString(1);
+                String prizeName = cursor.getString(1);
 
-                Prize prize = new Prize(prizeId, prizeDescription);
+                String prizeDescription = cursor.getString(2);
+
+                Prize prize = new Prize(prizeId, prizeName, prizeDescription);
                 dataList.add(prize);
                 cursor.moveToNext();
             }

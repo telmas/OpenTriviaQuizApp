@@ -360,17 +360,17 @@ public class MultipleQuizActivity extends AppCompatActivity {
 
     private void setPrizes(int booleanScore, int multipleScore, int fullScore){
         if(booleanScore == 5 && !dataBase.hasWonPrize(SystemController.getINSTANCE().getUserName(), 0)){
-            if(dataBase.storePrize(SystemController.getINSTANCE().getUserName(), 0, "Perfect Truth")) {
+            if(dataBase.storePrize(SystemController.getINSTANCE().getUserName(), 0, "Perfect Truth", "Answer 5 true/false questions correctly.")) {
                 perfectTruthPrizeWon = true;
             }
         }
         if(multipleScore == 5 && !dataBase.hasWonPrize(SystemController.getINSTANCE().getUserName(), 1)){
-            if(dataBase.storePrize(SystemController.getINSTANCE().getUserName(), 1, "Perfect Choice")){
+            if(dataBase.storePrize(SystemController.getINSTANCE().getUserName(), 1, "Perfect Choice", "Answer 5 multiple choice questions correctly.")){
                 perfectChoicePrizeWon = true;
             }
         }
         if(fullScore == 10 && !dataBase.hasWonPrize(SystemController.getINSTANCE().getUserName(), 2)){
-            if(dataBase.storePrize(SystemController.getINSTANCE().getUserName(), 2, "Perfect Quiz")){
+            if(dataBase.storePrize(SystemController.getINSTANCE().getUserName(), 2, "Perfect Quiz", "Answer all 10 questions correctly.")){
                 perfectQuizPrizeWon = true;
             }
         }

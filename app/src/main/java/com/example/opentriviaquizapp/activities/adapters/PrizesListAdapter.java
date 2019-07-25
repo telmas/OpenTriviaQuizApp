@@ -10,8 +10,6 @@ import android.widget.TextView;
 
 import com.example.opentriviaquizapp.R;
 import com.example.opentriviaquizapp.models.Prize;
-import com.example.opentriviaquizapp.models.ScoreRecord;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -31,21 +29,20 @@ public class PrizesListAdapter extends BaseAdapter {
         if (convertView == null) {
             holder = new PrizesViewHolder();
             convertView = LayoutInflater.from(activity).inflate(R.layout.prizes_list_row, parent, false);
-            holder.description = (TextView) convertView.findViewById(R.id.prize);
+            holder.name = (TextView) convertView.findViewById(R.id.prizeName);
+            holder.description = (TextView) convertView.findViewById(R.id.prizeDescription);
             holder.thumbnailImage = (ImageView) convertView.findViewById(R.id.galleryImage);
             convertView.setTag(holder);
         } else {
             holder = (PrizesViewHolder) convertView.getTag();
         }
+        holder.name.setId(position);
         holder.description.setId(position);
         holder.thumbnailImage.setId(position);
 
         try{
+            holder.name.setText(prizes.get(position).getName());
             holder.description.setText(prizes.get(position).getDescription());
-            Picasso.with(activity)
-                    .load("http://www.myiconfinder.com/uploads/iconsets/256-256-5d41edabc60f4fd2cf3c9f5d35d84045-trophy.png")
-                    .resize(250, 275)
-                    .into(holder.thumbnailImage);
 
         }catch(Exception e) {}
         return convertView;
@@ -63,5 +60,5 @@ public class PrizesListAdapter extends BaseAdapter {
 
 class PrizesViewHolder {
     ImageView thumbnailImage;
-    TextView description;
+    TextView name, description;
 }
