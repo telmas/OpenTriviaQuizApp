@@ -126,4 +126,14 @@ public class DBHelper extends SQLiteOpenHelper {
         return true;
     }
 
+    public Cursor getUserEarnedPrizes(String userName){
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        return db.rawQuery("select " + COLUMN_PRIZE_ID +", " +
+                COLUMN_PRIZE_DESCRIPTION + ", " +
+                COLUMN_ID +
+                " from "+ DATABASE_PRIZES_TABLE +
+                " where " + COLUMN_USER_NAME + " = \"" + userName.trim() + "\" " +
+                " order by " + COLUMN_ID + " desc", null);
+    }
 }

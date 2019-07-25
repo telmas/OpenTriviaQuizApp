@@ -20,6 +20,7 @@ public class UserProfileActivity extends AppCompatActivity {
         BottomNavigationView navigationView = findViewById(R.id.bottom_nav);
 
         final PreviousScoresFragment previousScoresFragment = new PreviousScoresFragment();
+        final EarnedPrizesFragment earnedPrizesFragment = new EarnedPrizesFragment();
 
         navigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -29,7 +30,7 @@ public class UserProfileActivity extends AppCompatActivity {
                     setFragment(previousScoresFragment);
                     return true;
                 } else if (id == R.id.prizesTabID){
-                    //set future fragment
+                    setFragment(earnedPrizesFragment);
                     return true;
                 }
                 return false;

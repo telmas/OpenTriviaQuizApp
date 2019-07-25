@@ -6,7 +6,13 @@
         android:icon="@android:drawable/ic_input_get"
         android:title="Previous Scores" />
     <item
+        android:id="@+id/empty"
+        android:checkable="false"
+        android:enabled="false"
+        android:title=""
+        android:visible="false" />
+    <item
         android:id="@+id/prizesTabID"
-        android:icon="@drawable/ic_launcher_background"
+        android:icon="@android:drawable/btn_star_big_off"
         android:title="Prizes" />
 </menu>
