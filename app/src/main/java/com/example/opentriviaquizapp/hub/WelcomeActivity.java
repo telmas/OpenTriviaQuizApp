@@ -1,4 +1,4 @@
-package com.example.opentriviaquizapp.activities;
+package com.example.opentriviaquizapp.hub;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;

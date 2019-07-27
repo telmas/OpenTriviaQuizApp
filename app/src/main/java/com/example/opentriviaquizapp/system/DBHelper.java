@@ -6,6 +6,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.example.opentriviaquizapp.userprofile.entities.Prize;
+
 public class DBHelper extends SQLiteOpenHelper {
 
     private static final int DATABASE_VERSION = 3;
@@ -116,12 +118,12 @@ public class DBHelper extends SQLiteOpenHelper {
         return cursor != null && cursor.moveToFirst();
     }
 
-    public boolean storePrize(String username, int prizeid, String prizeName, String prizeDescription){
+    public boolean storePrize(String username, Prize prize){
         ContentValues contentValues = new ContentValues();
         contentValues.put(COLUMN_USER_NAME, username.trim());
-        contentValues.put(COLUMN_PRIZE_ID, prizeid);
-        contentValues.put(COLUMN_PRIZE_NAME, prizeName);
-        contentValues.put(COLUMN_PRIZE_DESCRIPTION, prizeDescription);
+        contentValues.put(COLUMN_PRIZE_ID, prize.getId());
+        contentValues.put(COLUMN_PRIZE_NAME, prize.getName());
+        contentValues.put(COLUMN_PRIZE_DESCRIPTION, prize.getDescription());
 
         SQLiteDatabase db = getWritableDatabase();
         db.insert(DATABASE_PRIZES_TABLE, null, contentValues);

@@ -1,7 +1,7 @@
 package com.example.opentriviaquizapp.system;
 
-import com.example.opentriviaquizapp.models.BooleanQuestion;
-import com.example.opentriviaquizapp.models.MultipleQuestion;
+import com.example.opentriviaquizapp.userprofile.entities.BooleanQuestion;
+import com.example.opentriviaquizapp.userprofile.entities.MultipleQuestion;
 
 import java.util.ArrayList;
 import java.util.HashMap;

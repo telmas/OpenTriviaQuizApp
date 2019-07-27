@@ -1,4 +1,4 @@
-package com.example.opentriviaquizapp.activities.adapters;
+package com.example.opentriviaquizapp.userprofile.previousscores;
 
 import android.app.Activity;
 import android.view.LayoutInflater;
@@ -8,7 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.example.opentriviaquizapp.R;
-import com.example.opentriviaquizapp.models.ScoreRecord;
+import com.example.opentriviaquizapp.quiz.entities.ScoreRecord;
 
 import java.util.ArrayList;
 

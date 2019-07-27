@@ -1,6 +1,12 @@
-package com.example.opentriviaquizapp.models;
+package com.example.opentriviaquizapp.userprofile.entities;
+
+
 
 public class Prize {
+
+    public static final int OPTION_PERFECT_TRUTH = 0;
+    public static final int OPTION_PERFECT_CHOICE = 1;
+    public static final int OPTION_PERFECT_QUIZ = 2;
 
     private int id;
     private String name;

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:gravity="center_horizontal|fill_vertical"
     android:orientation="vertical"
-    tools:context=".activities.WelcomeActivity">
+    tools:context=".hub.WelcomeActivity">
 
 
         <ImageView

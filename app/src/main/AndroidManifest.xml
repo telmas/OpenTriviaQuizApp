@@ -11,20 +11,20 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppThemeDark">
-        <activity android:name=".activities.WelcomeActivity">
+        <activity android:name=".hub.WelcomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.ChooseCategoryActivity" />
-        <activity android:name=".activities.ChooseDifficultyActivity" />
-        <activity android:name=".activities.TrueFalseQuizActivity" />
-        <activity android:name=".activities.MultipleQuizActivity" />
-        <activity android:name=".activities.ViewSolutionsActivity" />
-        <activity android:name=".activities.UserProfileActivity" />
-        <activity android:name=".activities.HomeActivity" />
+        <activity android:name=".quizconfig.ChooseCategoryActivity" />
+        <activity android:name=".quizconfig.ChooseDifficultyActivity" />
+        <activity android:name=".quiz.TrueFalseQuizActivity" />
+        <activity android:name=".quiz.MultipleQuizActivity" />
+        <activity android:name=".quiz.solutions.ViewSolutionsActivity" />
+        <activity android:name=".userprofile.UserProfileActivity" />
+        <activity android:name=".hub.HomeActivity" />
     </application>
 
 </manifest>

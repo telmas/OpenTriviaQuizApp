@@ -1,4 +1,4 @@
-package com.example.opentriviaquizapp.activities;
+package com.example.opentriviaquizapp.quizconfig;
 
 import android.content.Intent;
 import android.os.Bundle;

@@ -1,4 +1,4 @@
-package com.example.opentriviaquizapp.activities;
+package com.example.opentriviaquizapp.userprofile;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -9,6 +9,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
 import com.example.opentriviaquizapp.R;
+import com.example.opentriviaquizapp.userprofile.previousscores.PreviousScoresFragment;
+import com.example.opentriviaquizapp.userprofile.prizes.EarnedPrizesFragment;
 
 public class UserProfileActivity extends AppCompatActivity {
 

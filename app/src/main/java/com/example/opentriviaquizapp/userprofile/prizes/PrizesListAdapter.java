@@ -1,4 +1,4 @@
-package com.example.opentriviaquizapp.activities.adapters;
+package com.example.opentriviaquizapp.userprofile.prizes;
 
 import android.app.Activity;
 import android.view.LayoutInflater;
@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.opentriviaquizapp.R;
-import com.example.opentriviaquizapp.models.Prize;
+import com.example.opentriviaquizapp.userprofile.entities.Prize;
 
 import java.util.ArrayList;
 

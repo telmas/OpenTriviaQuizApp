@@ -1,4 +1,4 @@
-package com.example.opentriviaquizapp.activities;
+package com.example.opentriviaquizapp.quizconfig;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -19,7 +19,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.opentriviaquizapp.R;
-import com.example.opentriviaquizapp.models.BooleanQuestion;
+import com.example.opentriviaquizapp.quiz.TrueFalseQuizActivity;
+import com.example.opentriviaquizapp.userprofile.entities.BooleanQuestion;
 import com.example.opentriviaquizapp.system.SystemController;
 
 import org.json.JSONArray;

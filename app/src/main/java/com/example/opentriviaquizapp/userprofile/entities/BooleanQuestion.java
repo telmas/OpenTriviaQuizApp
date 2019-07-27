@@ -1,4 +1,4 @@
-package com.example.opentriviaquizapp.models;
+package com.example.opentriviaquizapp.userprofile.entities;
 
 public class BooleanQuestion {
 

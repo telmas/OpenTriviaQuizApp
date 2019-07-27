@@ -1,4 +1,4 @@
-package com.example.opentriviaquizapp.activities;
+package com.example.opentriviaquizapp.quiz;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -17,8 +17,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.opentriviaquizapp.R;
-import com.example.opentriviaquizapp.models.BooleanQuestion;
-import com.example.opentriviaquizapp.models.MultipleQuestion;
+import com.example.opentriviaquizapp.hub.HomeActivity;
+import com.example.opentriviaquizapp.quiz.entities.DifficultyTypeConstants;
+import com.example.opentriviaquizapp.quiz.solutions.ViewSolutionsActivity;
+import com.example.opentriviaquizapp.userprofile.entities.BooleanQuestion;
+import com.example.opentriviaquizapp.userprofile.entities.MultipleQuestion;
+import com.example.opentriviaquizapp.userprofile.entities.Prize;
 import com.example.opentriviaquizapp.system.DBHelper;
 import com.example.opentriviaquizapp.system.SystemController;
 
@@ -337,13 +341,13 @@ public class MultipleQuizActivity extends AppCompatActivity {
         int difficultyId;
         switch(SystemController.getINSTANCE().getDifficulty().toUpperCase()) {
             case "EASY":
-                difficultyId = 0;
+                difficultyId = DifficultyTypeConstants.OPTION_EASY;
                 break;
             case "MEDIUM":
-                difficultyId = 1;
+                difficultyId = DifficultyTypeConstants.OPTION_MEDIUM;
                 break;
             case "HARD":
-                difficultyId = 2;
+                difficultyId = DifficultyTypeConstants.OPTION_HARD;
                 break;
             default:
                 difficultyId = -1;
@@ -359,18 +363,21 @@ public class MultipleQuizActivity extends AppCompatActivity {
     }
 
     private void setPrizes(int booleanScore, int multipleScore, int fullScore){
-        if(booleanScore == 5 && !dataBase.hasWonPrize(SystemController.getINSTANCE().getUserName(), 0)){
-            if(dataBase.storePrize(SystemController.getINSTANCE().getUserName(), 0, "Perfect Truth", "Answer 5 true/false questions correctly.")) {
+        if(booleanScore == 5 && !dataBase.hasWonPrize(SystemController.getINSTANCE().getUserName(), Prize.OPTION_PERFECT_TRUTH)){
+            Prize prize = new Prize(Prize.OPTION_PERFECT_TRUTH, "Perfect Truth", "Answer 5 true/false questions correctly.");
+            if(dataBase.storePrize(SystemController.getINSTANCE().getUserName(),prize)) {
                 perfectTruthPrizeWon = true;
             }
         }
-        if(multipleScore == 5 && !dataBase.hasWonPrize(SystemController.getINSTANCE().getUserName(), 1)){
-            if(dataBase.storePrize(SystemController.getINSTANCE().getUserName(), 1, "Perfect Choice", "Answer 5 multiple choice questions correctly.")){
+        if(multipleScore == 5 && !dataBase.hasWonPrize(SystemController.getINSTANCE().getUserName(), Prize.OPTION_PERFECT_CHOICE)){
+            Prize prize = new Prize(Prize.OPTION_PERFECT_CHOICE, "Perfect Choice", "Answer 5 multiple choice questions correctly.");
+            if(dataBase.storePrize(SystemController.getINSTANCE().getUserName(),prize)){
                 perfectChoicePrizeWon = true;
             }
         }
-        if(fullScore == 10 && !dataBase.hasWonPrize(SystemController.getINSTANCE().getUserName(), 2)){
-            if(dataBase.storePrize(SystemController.getINSTANCE().getUserName(), 2, "Perfect Quiz", "Answer all 10 questions correctly.")){
+        if(fullScore == 10 && !dataBase.hasWonPrize(SystemController.getINSTANCE().getUserName(), Prize.OPTION_PERFECT_QUIZ)){
+            Prize prize = new Prize(Prize.OPTION_PERFECT_QUIZ, "Perfect Quiz", "Answer all 10 questions correctly.");
+            if(dataBase.storePrize(SystemController.getINSTANCE().getUserName(),prize)){
                 perfectQuizPrizeWon = true;
             }
         }

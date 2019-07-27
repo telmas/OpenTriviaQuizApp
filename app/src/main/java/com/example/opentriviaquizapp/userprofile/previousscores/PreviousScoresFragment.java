@@ -1,4 +1,4 @@
-package com.example.opentriviaquizapp.activities;
+package com.example.opentriviaquizapp.userprofile.previousscores;
 
 import android.database.Cursor;
 import android.os.Bundle;
@@ -8,10 +8,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.example.opentriviaquizapp.R;
-import com.example.opentriviaquizapp.activities.adapters.PreviousScoresListAdapter;
-import com.example.opentriviaquizapp.models.ScoreRecord;
+import com.example.opentriviaquizapp.quiz.entities.ScoreRecord;
 import com.example.opentriviaquizapp.system.DBHelper;
 import com.example.opentriviaquizapp.system.SystemController;
 
@@ -21,6 +21,7 @@ import java.util.HashMap;
 public class PreviousScoresFragment extends Fragment {
 
     ListView listPrevScores;
+    TextView noResults;
     ProgressBar loader;
     DBHelper dataBase;
 
@@ -40,17 +41,23 @@ public class PreviousScoresFragment extends Fragment {
         listPrevScores = (ListView) getView().findViewById(R.id.listPrevScoresID);
         loader = (ProgressBar) getView().findViewById(R.id.loader);
         listPrevScores.setEmptyView(loader);
+        noResults = (TextView) getView().findViewById(R.id.noPreviousScoresID);
 
         dataBase = new DBHelper(getActivity());
     }
 
     public void populateData() {
         loader.setVisibility(View.VISIBLE);
-
+        dataList = new ArrayList<>();
         Cursor prevUserScores = dataBase.getPrevUserScores(SystemController.getINSTANCE().getUserName());
         loadDataList(prevUserScores, dataList);
 
 
+        if(dataList == null || dataList.size() == 0) {
+            noResults.setVisibility(View.VISIBLE);
+        } else {
+            noResults.setVisibility(View.INVISIBLE);
+        }
         loadListView(listPrevScores,dataList);
         loader.setVisibility(View.GONE);
     }

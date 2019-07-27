@@ -1,4 +1,4 @@
-package com.example.opentriviaquizapp.activities.adapters;
+package com.example.opentriviaquizapp.quiz.solutions;
 
 import android.app.Activity;
 
@@ -10,8 +10,8 @@ import android.widget.TextView;
 
 
 import com.example.opentriviaquizapp.R;
-import com.example.opentriviaquizapp.models.BooleanQuestion;
-import com.example.opentriviaquizapp.models.MultipleQuestion;
+import com.example.opentriviaquizapp.userprofile.entities.BooleanQuestion;
+import com.example.opentriviaquizapp.userprofile.entities.MultipleQuestion;
 import com.example.opentriviaquizapp.system.SystemController;
 
 import java.util.ArrayList;

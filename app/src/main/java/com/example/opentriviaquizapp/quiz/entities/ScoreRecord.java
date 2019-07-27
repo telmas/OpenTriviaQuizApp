@@ -1,4 +1,4 @@
-package com.example.opentriviaquizapp.models;
+package com.example.opentriviaquizapp.quiz.entities;
 
 public class ScoreRecord {
 

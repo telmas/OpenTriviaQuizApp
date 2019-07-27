@@ -1,4 +1,4 @@
-package com.example.opentriviaquizapp.activities;
+package com.example.opentriviaquizapp.quiz.solutions;
 
 
 import android.content.Intent;
@@ -11,7 +11,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.opentriviaquizapp.R;
-import com.example.opentriviaquizapp.activities.adapters.SolutionListAdapter;
+import com.example.opentriviaquizapp.hub.HomeActivity;
 
 public class ViewSolutionsActivity extends AppCompatActivity {
 

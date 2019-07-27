@@ -1,4 +1,4 @@
-package com.example.opentriviaquizapp.activities;
+package com.example.opentriviaquizapp.hub;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,9 +9,8 @@ import android.widget.ProgressBar;
 
 
 import com.example.opentriviaquizapp.R;
-
-
-
+import com.example.opentriviaquizapp.quizconfig.ChooseCategoryActivity;
+import com.example.opentriviaquizapp.userprofile.UserProfileActivity;
 
 
 public class HomeActivity extends AppCompatActivity {
