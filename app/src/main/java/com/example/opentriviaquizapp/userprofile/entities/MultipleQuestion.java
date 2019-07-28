@@ -22,6 +22,15 @@ public class MultipleQuestion {
         this.setCorrectOption(correctOption);
     }
 
+    public MultipleQuestion(String question, String correctOption){
+        this.setQuestion(question);
+        this.setOptionA("");
+        this.setOptionB("");
+        this.setOptionC("");
+        this.setOptionD("");
+        this.setCorrectOption(correctOption);
+    }
+
 
     public String getQuestion() {
         return question;

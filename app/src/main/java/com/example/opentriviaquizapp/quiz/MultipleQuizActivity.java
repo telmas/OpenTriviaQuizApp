@@ -36,6 +36,9 @@ public class MultipleQuizActivity extends AppCompatActivity {
     private String currentQuestionNumberDescription;
     private int counter = 0;
 
+    private int booleanScore = 0;
+    private int multipleScore = 0;
+
     private boolean perfectTruthPrizeWon;
     private boolean perfectChoicePrizeWon;
     private boolean perfectQuizPrizeWon;
@@ -278,22 +281,18 @@ public class MultipleQuizActivity extends AppCompatActivity {
         ArrayList<MultipleQuestion> multipleCorrectAnswers = SystemController.getINSTANCE().getMultipleQuestions();
         ArrayList<String> multipleUserAnswers = SystemController.getINSTANCE().getStringAnswers();
 
-        int score = 0;
-        int booleanScore = 0;
-        int multipleScore = 0;
+        booleanScore = 0;
+        multipleScore = 0;
         for (int i = 0; i < 5; i++) {
 
             if((booleanCorrectAnswers.get(i).isAnswer() == booleanUserAnswers.get(i)) && booleanAnswersHaveBeenSet.get(i)){
-                score++;
                 booleanScore++;
             }
             if(multipleCorrectAnswers.get(i).getCorrectOption().trim().equalsIgnoreCase(multipleUserAnswers.get(i).trim().toUpperCase())){
-                score++;
                 multipleScore++;
             }
         }
-        setPrizes(booleanScore, multipleScore, score);
-        return score;
+        return booleanScore + multipleScore;
     }
 
     public void showScore(View view){
@@ -310,6 +309,7 @@ public class MultipleQuizActivity extends AppCompatActivity {
         progressBar.setSecondaryProgress(10);
 
         int score = getScore();
+        setPrizes();
         progressBar.setProgress(score);
         progressBar.setProgressDrawable(drawable);
         scoreTextView.setText(score + "/10");
@@ -362,7 +362,7 @@ public class MultipleQuizActivity extends AppCompatActivity {
         }
     }
 
-    private void setPrizes(int booleanScore, int multipleScore, int fullScore){
+    public void setPrizes(){
         if(booleanScore == 5 && !dataBase.hasWonPrize(SystemController.getINSTANCE().getUserName(), Prize.OPTION_PERFECT_TRUTH)){
             Prize prize = new Prize(Prize.OPTION_PERFECT_TRUTH, "Perfect Truth", "Answer 5 true/false questions correctly.");
             if(dataBase.storePrize(SystemController.getINSTANCE().getUserName(),prize)) {
@@ -375,7 +375,7 @@ public class MultipleQuizActivity extends AppCompatActivity {
                 perfectChoicePrizeWon = true;
             }
         }
-        if(fullScore == 10 && !dataBase.hasWonPrize(SystemController.getINSTANCE().getUserName(), Prize.OPTION_PERFECT_QUIZ)){
+        if((booleanScore + multipleScore) == 10 && !dataBase.hasWonPrize(SystemController.getINSTANCE().getUserName(), Prize.OPTION_PERFECT_QUIZ)){
             Prize prize = new Prize(Prize.OPTION_PERFECT_QUIZ, "Perfect Quiz", "Answer all 10 questions correctly.");
             if(dataBase.storePrize(SystemController.getINSTANCE().getUserName(),prize)){
                 perfectQuizPrizeWon = true;
