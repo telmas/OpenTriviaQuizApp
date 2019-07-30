@@ -28,6 +28,8 @@
         android:layout_height="wrap_content"
         android:gravity="center|fill_horizontal|fill_vertical"
         android:text="No previous scores"
+        android:textAlignment="viewStart"
+        android:textSize="18sp"
         android:visibility="invisible" />
 
 

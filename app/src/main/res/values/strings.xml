@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">OpenTriviaQuizApp</string>
+    <string name="app_name">Open Trivia Quiz</string>
     <string name="name">Name</string>
     <string name="welcome_to">Welcome To</string>
     <string name="proceed">Proceed</string>
